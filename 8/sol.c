@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 double findSum(double x) {
     double e = 1;
@@ -14,8 +15,12 @@ double findSum(double x) {
     return (e - 1 / e) / (e + 1 / e);
 }
 
+double generate() {
+    return (double)rand() / RAND_MAX;
+}
+
 int main(int argc, char const* argv[]) {
-    if (argc < 4) {
+    if (argc < 2) {
         printf("Args count???");
         return 1;
     }
@@ -28,9 +33,20 @@ int main(int argc, char const* argv[]) {
         double input;
         FILE* writef = fopen(argv[3], "w");
         fscanf(readf, "%lF", &input);
-        fprintf(writef, "%.18F", findSum(input));
+        clock_t t = clock();
+        input = findSum(input);
+        t = clock() - t;
+        printf("%lF", (double)t / CLOCKS_PER_SEC);
+        fprintf(writef, "%.18F", input);
         fclose(readf);
         fclose(writef);
+    }
+    if (!strcmp(argv[1], "--rand")) {
+        FILE* writef = fopen(argv[2], "w");
+        clock_t t = clock();
+        double a = findSum(generate());
+        t = clock() - t;
+        fprintf(writef, "%.18F", a);
     }
     return 0;
 }
