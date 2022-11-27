@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 double findSum(register double x) {
     register double e = 1;
@@ -13,16 +12,9 @@ double findSum(register double x) {
     return (e - 1 / e) / (e + 1 / e);
 }
 
-int main(int argc, char const* argv[]) {
-    if (argc <= 4) {
-        return 1;
-    }
+int main(void) {
     double input;
-    if (!strcmp(argv[1], "--file")) {
-        char *in_name, out_name;
-        in_name = argv[2];
-        out_name = argv[3];
-    }
+    scanf("%lF", &input);
     double result = findSum(input);
     printf("%.18F", result);
     return 0;
