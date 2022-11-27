@@ -1,3 +1,4 @@
+	.file	"sol.c"
 	.intel_syntax noprefix
 	.text
 	.globl	findSum
@@ -5,41 +6,43 @@
 findSum:
 	push	rbp
 	mov	rbp, rsp
-	push	rbx
-	movsd	xmm6, QWORD PTR .LC0[rip]
-	movsd	xmm7, QWORD PTR .LC0[rip]
-	movapd	xmm2, xmm7
-	mov	ebx, 1
+	movsd	QWORD PTR -40[rbp], xmm0
+	movsd	xmm0, QWORD PTR .LC0[rip]
+	movsd	QWORD PTR -24[rbp], xmm0
+	movsd	xmm0, QWORD PTR .LC0[rip]
+	movsd	QWORD PTR -16[rbp], xmm0
+	pxor	xmm0, xmm0
+	movsd	QWORD PTR -8[rbp], xmm0
+	mov	DWORD PTR -28[rbp], 1
 	jmp	.L2
 .L3:
-	movapd	xmm1, xmm2
-	mulsd	xmm1, xmm0
-	pxor	xmm2, xmm2
-	cvtsi2sd	xmm2, ebx
-	movapd	xmm4, xmm1
-	divsd	xmm4, xmm2
-	movapd	xmm5, xmm6
-	addsd	xmm5, xmm4
-	movapd	xmm6, xmm5
-	movapd	xmm2, xmm4
-	add	ebx, 1
+	movsd	xmm0, QWORD PTR -16[rbp]
+	mulsd	xmm0, QWORD PTR -40[rbp]
+	pxor	xmm1, xmm1
+	cvtsi2sd	xmm1, DWORD PTR -28[rbp]
+	divsd	xmm0, xmm1
+	movsd	QWORD PTR -8[rbp], xmm0
+	movsd	xmm0, QWORD PTR -24[rbp]
+	addsd	xmm0, QWORD PTR -8[rbp]
+	movsd	QWORD PTR -24[rbp], xmm0
+	movsd	xmm0, QWORD PTR -8[rbp]
+	movsd	QWORD PTR -16[rbp], xmm0
+	add	DWORD PTR -28[rbp], 1
 .L2:
-	cmp	ebx, 100
+	cmp	DWORD PTR -28[rbp], 100
 	jle	.L3
 	movsd	xmm0, QWORD PTR .LC0[rip]
 	movapd	xmm1, xmm0
-	movapd	xmm3, xmm6
-	divsd	xmm1, xmm3
-	movapd	xmm0, xmm3
+	divsd	xmm1, QWORD PTR -24[rbp]
+	movsd	xmm0, QWORD PTR -24[rbp]
 	subsd	xmm0, xmm1
 	movsd	xmm1, QWORD PTR .LC0[rip]
-	divsd	xmm1, xmm3
-	addsd	xmm1, xmm3
+	divsd	xmm1, QWORD PTR -24[rbp]
+	addsd	xmm1, QWORD PTR -24[rbp]
 	divsd	xmm0, xmm1
 	movq	rax, xmm0
 	movq	xmm0, rax
-	mov	rbx, QWORD PTR -8[rbp]
-	leave
+	pop	rbp
 	ret
 	.size	findSum, .-findSum
 	.section	.rodata
@@ -156,3 +159,5 @@ main:
 .LC0:
 	.long	0
 	.long	1072693248
+	.ident	"GCC: (Ubuntu 11.3.0-1ubuntu1~22.04) 11.3.0"
+	.section	.note.GNU-stack,"",@progbits
