@@ -1,0 +1,7 @@
+*
+!/**/
+!*.*
+.vscode
+tests
+*backup.s
+*.o
