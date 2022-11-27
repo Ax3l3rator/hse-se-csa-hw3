@@ -207,6 +207,16 @@ main:
 	call	clock@PLT
 	sub	rax, QWORD PTR -24[rbp]
 	mov	QWORD PTR -24[rbp], rax
+	pxor	xmm0, xmm0
+	cvtsi2sd	xmm0, QWORD PTR -24[rbp]
+	movsd	xmm1, QWORD PTR .LC9[rip]
+	divsd	xmm0, xmm1
+	movq	rax, xmm0
+	movq	xmm0, rax
+	lea	rax, .LC8[rip]
+	mov	rdi, rax
+	mov	eax, 1
+	call	printf@PLT
 	mov	rdx, QWORD PTR -16[rbp]
 	mov	rax, QWORD PTR -32[rbp]
 	movq	xmm0, rdx

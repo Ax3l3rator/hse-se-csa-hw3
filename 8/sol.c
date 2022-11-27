@@ -46,6 +46,7 @@ int main(int argc, char const* argv[]) {
         clock_t t = clock();
         double a = findSum(generate());
         t = clock() - t;
+        printf("%lF", (double)t / CLOCKS_PER_SEC);
         fprintf(writef, "%.18F", a);
     }
     return 0;

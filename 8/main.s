@@ -38,14 +38,14 @@ main:
 	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 80
-	mov	DWORD PTR -68[rbp], edi # argc
-	mov	QWORD PTR -80[rbp], rsi # argv
+	mov	DWORD PTR -68[rbp], edi
+	mov	QWORD PTR -80[rbp], rsi
 	mov	rax, QWORD PTR fs:40
 	mov	QWORD PTR -8[rbp], rax
 	xor	eax, eax
 	cmp	DWORD PTR -68[rbp], 1
 	jg	.L8
-	lea	rax, .LC3[rip] # rax -> "Args count???"
+	lea	rax, .LC3[rip]
 	mov	rdi, rax
 	mov	eax, 0
 	call	printf@PLT
@@ -54,7 +54,7 @@ main:
 .L8:
 	mov	rax, QWORD PTR -80[rbp]
 	add	rax, 8
-	mov	rax, QWORD PTR [rax] 
+	mov	rax, QWORD PTR [rax]
 	lea	rdx, .LC4[rip]
 	mov	rsi, rdx
 	mov	rdi, rax
@@ -161,6 +161,16 @@ main:
 	call	clock@PLT
 	sub	rax, QWORD PTR -24[rbp]
 	mov	QWORD PTR -24[rbp], rax
+	pxor	xmm0, xmm0
+	cvtsi2sd	xmm0, QWORD PTR -24[rbp]
+	movsd	xmm1, QWORD PTR .LC9[rip]
+	divsd	xmm0, xmm1
+	movq	rax, xmm0
+	movq	xmm0, rax
+	lea	rax, .LC8[rip]
+	mov	rdi, rax
+	mov	eax, 1
+	call	printf@PLT
 	mov	rdx, QWORD PTR -16[rbp]
 	mov	rax, QWORD PTR -32[rbp]
 	movq	xmm0, rdx
