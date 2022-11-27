@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-double findSum(register double x) {
-    register double e = 1;
-    register double prev = 1;
-    register double val = 0;
+double findSum(double x) {
+    double e = 1;
+    double prev = 1;
+    double val = 0;
     for (register int i = 1; i <= 100; ++i) {
         val = prev * x / i;
         e += val;
